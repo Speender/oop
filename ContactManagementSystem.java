@@ -9,7 +9,7 @@ public class ContactManagementSystem {
         while (true) {
            System.out.println("===============================");
            System.out.println("CONTACT MANAGEMENT SYSTEM");
-           System.out.println("[1] Add contact \n[2] View Contacts \n[3] Update Contact \n[4]Delete Contact \n[5] Exit program \n=============================== ");
+           System.out.println("[1] Add contact \n[2] View Contacts \n[3] Update Contact \n[4] Delete Contact \n[5] Exit program \n=============================== ");
            System.out.printf("Enter Choice: ");
             int choice = scan.nextInt();
             scan.nextLine();
@@ -53,20 +53,18 @@ public class ContactManagementSystem {
     private static void viewContacts() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
-            System.out.println("Contacts:");
-            while ((line = reader.readLine()) != isEmpty()) {
+            if ((line = reader.readLine()) != isEmpty()) {
+                            System.out.println("Contacts:");
                             System.out.println(line);
+                        }else{
+                           System.out.println("Contact List is empty...");
                         }
                     } catch (IOException e) {
                         System.out.println("An error occurred.");
                         e.printStackTrace();
                     }
                 }
-            
-                private static String isEmpty() {
-                    return null;
-                }
-            
+                        
                 private static void updateContact(Scanner scan) {
         System.out.print("Enter the name of the contact to update: ");
         String oldName = scan.nextLine();
@@ -121,4 +119,8 @@ public class ContactManagementSystem {
             e.printStackTrace();
         }
     }
+    private static String isEmpty() {
+                    return null;
+                }
+
 }
