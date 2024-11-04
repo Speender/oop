@@ -3,34 +3,36 @@ import java.util.*;
 
 public class ContactManagementSystem {
     private static final String FILE_PATH = "contacts.txt";
+    
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
         while (true) {
-           System.out.println("===============================");
-           System.out.println("CONTACT MANAGEMENT SYSTEM");
-           System.out.println("[1] Add contact \n[2] View Contacts \n[3] Update Contact \n[4] Delete Contact \n[5] Exit program \n=============================== ");
-           System.out.printf("Enter Choice: ");
+            System.out.println("===============================");
+            System.out.println("CONTACT MANAGEMENT SYSTEM");
+            System.out.println("[1] Add contact \n[2] View Contacts \n[3] Update Contact \n[4] Delete Contact \n[5] Exit program");
+            System.out.println("===============================");
+            System.out.print("Enter Choice: ");
             int choice = scan.nextInt();
             scan.nextLine();
 
             switch (choice) {
-                case 1 :
+                case 1:
                     addContact(scan);
                     break;
-                case 2 : 
+                case 2:
                     viewContacts();
                     break;
-                case 3 :
+                case 3:
                     updateContact(scan);
                     break;
-                case 4 : 
+                case 4:
                     deleteContact(scan);
                     break;
-                case 5 :
+                case 5:
                     System.out.println("Exiting...");
                     return;
-                default :
+                default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
@@ -53,24 +55,26 @@ public class ContactManagementSystem {
     private static void viewContacts() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
-            if ((line = reader.readLine()) != isEmpty()) {
-                            System.out.println("Contacts:");
-                            System.out.println(line);
-                        }else{
-                           System.out.println("Contact List is empty...");
-                        }
-                    } catch (IOException e) {
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }
-                }
-                        
-                private static void updateContact(Scanner scan) {
+            if ((line = reader.readLine()) != null) {
+                System.out.println("Contacts:");
+                do {
+                    System.out.println(line);
+                } while ((line = reader.readLine()) != null);
+            } else {
+                System.out.println("Contact List is empty...");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateContact(Scanner scan) {
         System.out.print("Enter the name of the contact to update: ");
         String oldName = scan.nextLine();
         System.out.print("Enter the new name: ");
         String newName = scan.nextLine();
-        
+
         List<String> contacts = readContactsFromFile();
         if (contacts.contains(oldName)) {
             contacts.set(contacts.indexOf(oldName), newName);
@@ -84,7 +88,7 @@ public class ContactManagementSystem {
     private static void deleteContact(Scanner scan) {
         System.out.print("Enter the name of the contact to delete: ");
         String name = scan.nextLine();
-        
+
         List<String> contacts = readContactsFromFile();
         if (contacts.remove(name)) {
             writeContactsToFile(contacts);
@@ -119,8 +123,4 @@ public class ContactManagementSystem {
             e.printStackTrace();
         }
     }
-    private static String isEmpty() {
-                    return null;
-                }
-
 }
